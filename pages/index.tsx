@@ -9,6 +9,8 @@ const Home: NextPage = ({ lessons }) => {
   console.log(lessons);
   const [name, setName] = useState('');
 
+  console.log(supabase.auth.getUser());
+
   const info = async () => {
     const data = await fetch('/api/hello');
     const { name } = await data.json();
