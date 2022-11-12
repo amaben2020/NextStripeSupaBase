@@ -2,6 +2,10 @@ import initStripe from 'stripe';
 import { supabase } from '../../utils/client';
 
 const handler = async (req, res) => {
+  if (req.query.API_ROUTE_SECRET !== process.env.API_ROUTE_SECRET) {
+    return res.status(401).send('Unauthorized');
+  }
+
   const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
 
   const customer = await stripe.customers.create({
