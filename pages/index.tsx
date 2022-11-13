@@ -4,13 +4,13 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { supabase } from './../utils/client';
+import { useUser } from './../context/user';
 
 const Home: NextPage = ({ lessons }) => {
-  console.log(lessons);
   const [name, setName] = useState('');
 
-  console.log(supabase.auth.getUser());
-
+  const user = useUser();
+  console.log('USER', { user });
   const info = async () => {
     const data = await fetch('/api/hello');
     const { name } = await data.json();
@@ -24,7 +24,7 @@ const Home: NextPage = ({ lessons }) => {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center py-2'>
       {name}
-      {JSON.stringify({ lessons })}
+      {/* {user.data.user.email} */}
 
       {lessons.map((lesson) => (
         <Link key={lesson.name} href={`/${lesson.id}`}>

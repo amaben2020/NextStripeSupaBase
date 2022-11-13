@@ -1,12 +1,11 @@
+//@ts-nocheck
+
 import React, { useEffect } from 'react';
-import { supabase } from './../utils/client';
+import { useUser } from './../context/user';
 
 const Login = () => {
-  useEffect(() => {
-    supabase.auth.signInWithOAuth({
-      provider: 'github',
-    });
-  }, []);
+  const { login } = useUser();
+  useEffect(login, []);
 
   return <div>Login</div>;
 };
