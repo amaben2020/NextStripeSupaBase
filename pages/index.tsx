@@ -5,16 +5,24 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { supabase } from './../utils/client';
 import { useUser } from './../context/user';
+import axios from 'axios';
 
 const Home: NextPage = ({ lessons }) => {
   const [name, setName] = useState('');
 
   const user = useUser();
   console.log('USER', { user });
+  const controller = new AbortController();
   const info = async () => {
-    const data = await fetch('/api/hello');
-    const { name } = await data.json();
+    const {
+      data: { name },
+    } = await axios.get('/api/hello', {
+      signal: controller.signal,
+    });
+
     setName(name);
+
+    // controller.abort();
   };
 
   useEffect(() => {

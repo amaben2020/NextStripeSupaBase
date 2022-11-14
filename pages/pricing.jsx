@@ -1,16 +1,73 @@
-import initStripe from 'stripe';
+// import initStripe from 'stripe';
+const Stripe = require('stripe');
 
 import { useUser } from './../context/user';
 
 import axios from 'axios';
 
+// import { loadStripe } from '@stripe/stripe-js';
+import { supabase } from '../utils/client';
+import getStripe from '../utils/get-stripe';
+import { useRouter } from 'next/router';
+
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
+  const { push } = useRouter();
 
   const processSubscription = async (plan) => {
-    const { data } = await axios.get(`/api/subscription/${plan}`);
+    // const { data } = await axios.get(`/api/subscription/${plan}`);
+    const sessionInfo = supabase.auth.getSession();
+    console.log('SESSION INFO', sessionInfo);
+    console.log('PLAN ID', plan);
 
-    console.log(data);
+    // get the stripe customer
+    const {
+      data: { stripe_customer },
+    } = await supabase
+      .from('profile')
+      .select('stripe_customer')
+      .eq('id', user.id)
+      .single();
+    console.log('Customner', stripe_customer);
+
+    const { data } = await axios.post(
+      `/api/stripe/subscribe?cusId=${stripe_customer}`,
+      { priceId: plan }
+    );
+
+    // console.log('DATA', data);
+
+    push(data);
+
+    // const id = (await sessionInfo).data.session.access_token;
+
+    // const stripe = Stripe(process.env.NEXT_STRIPE_SECRET_KEY);
+
+    // const lineItems = [
+    //   {
+    //     price: plan,
+    //     quantity: 1,
+    //   },
+    // ];
+
+    // await stripe.checkout.sessions.create({
+    //   customer: stripe_customer,
+    //   mode: 'subscription',
+    //   payment_method_types: ['card'],
+    //   line_items: lineItems,
+    //   success_url: 'http://localhost:3000/payment/success',
+    //   cancel_url: 'http://localhost:3000/payment/cancelled',
+    // });
+
+    // const loadStripe = getStripe();
+
+    // const stripeRedirect = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+
+    // console.log('stripe redirect', stripeRedirect);
+
+    // await stripeRedirect.redirectToCheckout({
+    //   sessionId: id,
+    // });
   };
 
   const showSubsribeButton = !!user && !user.is_subscribed;
@@ -30,17 +87,19 @@ const Pricing = ({ plans }) => {
 
           {!isLoading && (
             <div>
-              {showSubsribeButton && (
-                <button onClick={processSubscription(plan?.id)}>
-                  {' '}
-                  Subscribe
+              {showSubsribeButton && <button> Subscribe</button>}
+              {showCreateAccountButton && (
+                <button className='border-red-200 p-2 my-2' onClick={login}>
+                  Create Account
                 </button>
               )}
-              {showCreateAccountButton && (
-                <button onClick={login}> Create Account</button>
-              )}
               {showManageSubscriptionButton && (
-                <button> Manage Subscription</button>
+                <button
+                  className='border p-2 my-2'
+                  onClick={() => processSubscription(plan.id)}
+                >
+                  Manage Subscription
+                </button>
               )}
             </div>
           )}
@@ -51,7 +110,7 @@ const Pricing = ({ plans }) => {
 };
 
 export const getStaticProps = async () => {
-  const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
+  const stripe = Stripe(process.env.NEXT_STRIPE_SECRET_KEY);
 
   const { data: prices } = await stripe.prices.list();
 

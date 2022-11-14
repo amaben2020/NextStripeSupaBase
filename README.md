@@ -24,3 +24,6 @@ await supabase
 stripe_customer: customer.id,
 })
 .eq('id', req.body.record.id);
+
+https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe
+Middleware: https://www.ctnicholas.dev/articles/how-to-use-nextjs-middleware
