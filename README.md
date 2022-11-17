@@ -35,3 +35,21 @@ Go to stripe developers, webhooks => add an endpoint ==> use ngrok tunneling
 add events ==> customer
 
 install micro eto ensure the req shape meets stripe requirements
+
+Sample webhook object
+WEBHOOK EVENT {
+evt: {
+id: 'evt_1M5DsuL3jXIJJMcYzgBPFTvL',
+object: 'event',
+api_version: '2022-08-01',
+created: 1668713786,
+data: { object: [Object] },
+livemode: false,
+pending_webhooks: 1,
+request: {
+id: 'req_EDHsyky9f8Y3lC',
+idempotency_key: '3f41124c-98f9-4fc0-9498-78cdf99fb5d5'
+},
+type: 'customer.subscription.created'
+}
+}

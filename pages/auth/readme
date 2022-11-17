@@ -1,0 +1,3 @@
+https://benjaminwfox.com/blog/tech/how-to-configure-azure-b2c-with-nextjs
+
+Since you have access to both the client and server(less) environments, you could handle authentication purely in the client, on the server, or with a mix of both.

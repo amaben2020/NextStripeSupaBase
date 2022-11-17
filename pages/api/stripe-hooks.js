@@ -2,6 +2,8 @@ import initStripe from 'stripe';
 import { buffer } from 'micro';
 import { getServiceSupabase } from '../../utils/client';
 
+//Webhooks basically enable you do stuff based on the sub outcome, i.e updating tables i.e year or monthly sub
+
 export const config = { api: { bodyParser: false } };
 
 const handler = async (req, res) => {
@@ -34,6 +36,8 @@ const handler = async (req, res) => {
   // updating user profile based on event type
 
   const supabase = getServiceSupabase();
+
+  console.log(supabase);
 
   // updating subscription to true
 
