@@ -1,4 +1,4 @@
-import { Stripe, loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 // using the singleton pattern
 //To make sure that you don't reinstate Stripe on every render, we recommend that you use the singleton pattern to create/retrieve the Stripe instance:

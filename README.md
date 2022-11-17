@@ -1,6 +1,8 @@
 routing
 https://ashutosh.dev/next-js-file-based-routing-dynamic-routes-and-navigation-part-2/
 
+ICONS: https://fonts.google.com/icons?icon.query=news
+
 https://heroicons.dev/
 
 Github: Settings ==> Developer settings
@@ -27,3 +29,9 @@ stripe_customer: customer.id,
 
 https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe
 Middleware: https://www.ctnicholas.dev/articles/how-to-use-nextjs-middleware
+
+Webhooks to notify us on when subscription events occur
+Go to stripe developers, webhooks => add an endpoint ==> use ngrok tunneling
+add events ==> customer
+
+install micro eto ensure the req shape meets stripe requirements
