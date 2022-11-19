@@ -58,3 +58,6 @@ I want subscribed patients to be able to chat with their doctors based on sub le
 There would be relationships based on the doctor and patient over webhooks (calls an api based on an event)
 
 https://adebola-niran.medium.com/building-a-serverless-realtime-chat-application-with-pusher-and-nextjs-fb92f451c75d
+
+Stripe: Allowing customers manage their subscription
+//settings ==> billing => customer portal ==> allow customers manage sub

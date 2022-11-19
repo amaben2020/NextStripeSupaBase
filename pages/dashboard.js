@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUser } from '../context/user';
 import { supabase } from '../utils/client';
+import { useRouter } from 'next/router';
 
 const Dashboard = (props) => {
   const { user, isLoading } = useUser();
-  console.log(user);
-  console.log(props.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, []);
+
   return (
     <div>
       {!isLoading && (
@@ -19,23 +26,23 @@ const Dashboard = (props) => {
 
 export default Dashboard;
 
-export const getServerSideProps = async ({ req }) => {
-  const { data } = await supabase.auth.getUser();
-  console.log('USER', data.user?.email);
+// export const getServerSideProps = async ({ req }) => {
+//   const { data } = await supabase?.auth?.getUser();
+//   console.log('USER', data.user?.email);
 
-  if (!data.user?.email) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
-      props: {},
-    };
-  }
+//   // if (!data.user?.email) {
+//   //   return {
+//   //     redirect: {
+//   //       permanent: false,
+//   //       destination: '/login',
+//   //     },
+//   //     props: {},
+//   //   };
+//   // }
 
-  return {
-    props: {
-      user: data.user,
-    },
-  };
-};
+//   return {
+//     props: {
+//       user: data.user,
+//     },
+//   };
+// };
