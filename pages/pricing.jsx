@@ -9,6 +9,7 @@ import axios from 'axios';
 import { supabase } from '../utils/client';
 import getStripe from '../utils/get-stripe';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
@@ -87,19 +88,21 @@ const Pricing = ({ plans }) => {
 
           {!isLoading && (
             <div>
-              {showSubsribeButton && <button> Subscribe</button>}
+              {showSubsribeButton && (
+                <button onClick={() => processSubscription(plan.id)}>
+                  {' '}
+                  Subscribe
+                </button>
+              )}
               {showCreateAccountButton && (
                 <button className='border-red-200 p-2 my-2' onClick={login}>
                   Create Account
                 </button>
               )}
               {showManageSubscriptionButton && (
-                <button
-                  className='border p-2 my-2'
-                  onClick={() => processSubscription(plan.id)}
-                >
+                <Link href='/dashboard' className='border p-2 my-2'>
                   Manage Subscription
-                </button>
+                </Link>
               )}
             </div>
           )}

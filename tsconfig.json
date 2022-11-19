@@ -15,6 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/[id].jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/[id].jsx",
+    "pages/api/socket.js"
+  ],
   "exclude": ["node_modules"]
 }

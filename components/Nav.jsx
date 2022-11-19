@@ -11,6 +11,12 @@ const Nav = () => {
         Pricing
       </Link>
 
+      {!!user && (
+        <Link className='ml-2' href='/dashboard'>
+          Dashboard
+        </Link>
+      )}
+
       <div className='ml-auto'>
         <Link legacyBehavior href={user ? 'logout' : 'login'}>
           {user?.data?.user ? 'Logout' : 'Login'}

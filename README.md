@@ -53,3 +53,8 @@ idempotency_key: '3f41124c-98f9-4fc0-9498-78cdf99fb5d5'
 type: 'customer.subscription.created'
 }
 }
+
+I want subscribed patients to be able to chat with their doctors based on sub level
+There would be relationships based on the doctor and patient over webhooks (calls an api based on an event)
+
+https://adebola-niran.medium.com/building-a-serverless-realtime-chat-application-with-pusher-and-nextjs-fb92f451c75d

@@ -1,3 +1,5 @@
+//similar concept
+
 import { buffer } from 'micro';
 const Stripe = require('stripe');
 
