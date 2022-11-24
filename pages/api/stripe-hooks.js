@@ -37,12 +37,11 @@ const handler = async (req, res) => {
 
   const supabase = getServiceSupabase();
 
-  console.log(supabase);
-
   // updating subscription to true
 
+  // you could do for created alone though
   switch (evt.type) {
-    case 'customer.subscription.created':
+    case 'customer.subscription.updated':
       await supabase
         .from('profile')
         .update({
@@ -50,6 +49,16 @@ const handler = async (req, res) => {
           interval: evt.data.object.items.data[0].plan.interval,
         })
         .eq('stripe_customer', evt.data.object.customer);
+      break;
+    case 'customer.subscription.deleted':
+      await supabase
+        .from('profile')
+        .update({
+          is_subscribed: false,
+          interval: null,
+        })
+        .eq('stripe_customer', evt.data.object.customer);
+      break;
   }
 
   console.log('WEBHOOK EVENT', { evt });

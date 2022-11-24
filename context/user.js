@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { createContext, useState, useEffect, useContext } from 'react';
-import { supabase } from './../utils/client';
+import { supabase, getServiceSupabase } from './../utils/client';
 
 const Context = createContext();
 
@@ -19,6 +19,23 @@ const UserProvider = ({ children }) => {
   //     event: user ? 'SIGNED_IN' : 'SIGNED_OUT',
   //     session: supabase.auth.getSession(),
   //   });
+  // }, [user]);
+
+  //TODO: understand setting headers in node
+
+  // useEffect(() => {
+  //   if (user) {
+  //     const subscription = supabase
+  //       .from(`profile:id=eq.${user.id}`)
+  //       .on('UPDATE', (payload) => {
+  //         setUser({ ...user, ...payload.new });
+  //       })
+  //       .subscribe();
+
+  //     return () => {
+  //       supabase.removeSubscription(subscription);
+  //     };
+  //   }
   // }, [user]);
 
   useEffect(() => {

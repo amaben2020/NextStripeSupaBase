@@ -61,3 +61,15 @@ https://adebola-niran.medium.com/building-a-serverless-realtime-chat-application
 
 Stripe: Allowing customers manage their subscription
 //settings ==> billing => customer portal ==> allow customers manage sub
+
+// clear form after sending
+if (res.status === 200) {
+do cool stuff after sending
+setName("")
+setEmail("")
+
+}
+
+Nodemailer best resource: https://stackoverflow.com/questions/45478293/username-and-password-not-accepted-when-using-nodemailer/45479968#45479968
+https://www.youtube.com/watch?v=xvX4gWRWIVY
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5cdd23478535035a71d8b446a5a340762cc2afe2/types/nodemailer/v3/index.d.ts#L109
