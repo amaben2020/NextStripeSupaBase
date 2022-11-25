@@ -6,8 +6,23 @@
 const dotenv = require('dotenv');
 const algoliasearch = require('algoliasearch/lite');
 
-async function getAllBlogPosts() {
+const data = [
+  {
+    sys: { id: 'kjnacjasoiao9e9fj9evwjiooivrklrkv' },
+    excerpt: 'lorem ipsum dolor sit amet, con',
+    slug: 'algolia-search',
+    title: 'Algolia search test v1',
+    date: '2013-03-3',
+    readingTime: 44,
+    topicsCollection: {
+      items: [],
+    },
+  },
+];
+
+function getAllBlogPosts() {
   // write your code to fetch your data
+  return data;
 }
 
 // transforming data for Algolia
@@ -43,7 +58,7 @@ function transformPostsToSearchObjects(posts) {
     );
 
     // initialize the index with your index name
-    const index = client.initIndex('U0GPCIA4WP');
+    const index = client.initIndex('algomachine');
 
     // save the objects!
     const algoliaResponse = await index.saveObjects(transformed);
